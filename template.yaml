@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An example SAM template for Spring Cloud Function.
+
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker
+      Runtime: java17
+      CodeUri: build/libs/demo-lambda-0.0.1-SNAPSHOT-aws.jar
+      MemorySize: 2048
+      Timeout: 60
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /uppercase
+            Method: post
